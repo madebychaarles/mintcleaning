@@ -1,4 +1,3 @@
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlIp3BeoXqnT-a9yut9wnHd5tsG-Kvz7I&libraries=places"></script>
 <script>
 $("#form-next-button, #form-prev-button").click(function() { $(window).scrollTop(0); });
   var gpaInput = document.getElementById("client-address");
