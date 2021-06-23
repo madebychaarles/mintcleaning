@@ -38,5 +38,5 @@ function filInAddress() {
 		aptInput.addEventListener('propertychange', myScript);
 		postal.addEventListener('input', inputHandler);
 		postal.addEventListener('propertychange', inputHandler);
-        </script>
+</script>
     
