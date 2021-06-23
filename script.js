@@ -1,4 +1,4 @@
-<script>
+<script type="text/javascript">
 $("#form-next-button, #form-prev-button").click(function() { $(window).scrollTop(0); });
   var gpaInput = document.getElementById("client-address");
   var gpaOutput = document.getElementById("clientaddress-text");
@@ -10,6 +10,7 @@ $("#form-next-button, #form-prev-button").click(function() { $(window).scrollTop
     types: ["address"],
   });
   autocomplete.addListener("place_changed", filInAddress);
+
 function filInAddress() {
   const place = autocomplete.getPlace();
   let postcode = "";
@@ -37,7 +38,5 @@ function filInAddress() {
 		aptInput.addEventListener('propertychange', myScript);
 		postal.addEventListener('input', inputHandler);
 		postal.addEventListener('propertychange', inputHandler);
-</script>
-<script>
-
-</script>
+        </script>
+    
