@@ -7,7 +7,14 @@ x.addEventListener("focusout", FocusOut);
 
 let sum, total = 0;
 var n, multi = 0;
-$(document).ready(function(){
+const $loc = $('input[name=Location]:checked');
+const $bed = $('input[name=Bedroom]:checked');
+const $bath = $('input[name=Bathroom]:checked');
+const $clntype = $('input[name=CleanType]:checked');
+const $how = $('input[name=How-Do-We-Get-In]:checked');
+const $rec = $('input[name=Recurring]:checked');
+
+$(function(){
  const rbs = document.querySelectorAll('input[name="Location"]');
  let selectedValue;
  for (const rb of rbs) {
@@ -30,21 +37,23 @@ const cts = document.querySelectorAll('input[name="CleanType"]');
 	}
 	sum = n;
 	$('input[type="radio"]#disable-event, .past-event').attr('disabled', 'disabled');
+
   $('.mc-check-label').prev().each((i, checkbox)=>{
     if($('input[checkbox]').is(':checked')){
       sum += parseInt($(checkbox).attr('add-value'));
     }
 	});
-  $( "#bedroom-number" ).html($('input[name="Bedroom"]:checked').val());
-  $( "#bathroom-number" ).html($('input[name="Bathroom"]:checked').val());
-  $( "#cleantype-text" ).html($('input[name="CleanType"]:checked').attr('add-string'));
-  $( "#cleantype-hour" ).html($('input[name="CleanType"]:checked').attr('add-hour'));
-  sum += (Number($('input[name=Location]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=CleanType]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=Bedroom]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
-  sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
+
+  $( "#bedroom-number" ).html($bed.val());
+  $( "#bathroom-number" ).html($bath.val());
+  $( "#cleantype-text" ).html($clntype.attr('add-string'));
+  $( "#cleantype-hour" ).html($clntype.attr('add-hour'));
+  sum += (Number($loc.attr('add-value')) || 0)+
+  (Number($clntype.attr('add-value')) || 0)+
+  (Number($bath.attr('add-value')) || 0)+
+  (Number($bed.attr('add-value')) || 0)+
+  (Number($how.attr('add-value')) || 0);
+  sum = sum + ( sum * Number($rec.attr('add-value')) );
   formatNDisplay(sum);
 });
 
@@ -52,74 +61,72 @@ $('.mc-check-label').click(function(){
   const $totalVal = $('.add-num'), $checkbox = $(this).prev();
   if(!$checkbox.is(':checked')){
     sum = Number($totalVal.text().replace(/[\$,]/g,'')) + Number($checkbox.attr('add-value'));
+    sum = sum + ( sum * Number($rec.attr('add-value')) );
   }
   else{ 
     sum = Number($totalVal.text().replace(/[\$,]/g,'')) - Number($checkbox.attr('add-value'));
+    sum = sum + ( sum * Number($rec.attr('add-value')) );
   }
  	FocusIn();
 });
-$('.mc-date-label').click(function(){
-   if($(this).prev().is('[name="Clean-Date"]')){
-   	 $( "#cleandate-text" ).html($(this).prev().val());
-   }
-});
 
-var clickCount = 0;
 $('.mc-radio-label').click(function(){
-  if($(this).prev().is('[name="Location"]')){
-    sum = Number($(this).prev().attr('add-value')) +
-    (Number($('input[name=CleanType]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bedroom]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
+  const $this = $(this).prev();
+
+  if($this.is('[name=Location]')){
+    sum = Number($this.attr('add-value')) +
+    (Number($clntype.attr('add-value')) || 0) +
+    (Number($bed.attr('add-value')) || 0) +
+    (Number($bath.attr('add-value')) || 0) +
+    (Number($how.attr('add-value')) || 0);
      sum += n;
-     sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
-  } else if($(this).prev().is('[name="Bedroom"]')) {
+     sum = sum + ( sum * Number($rec.attr('add-value')) );
+  } else if($this.is('[name=Bedroom]')) {
 		 $( "#bedroom-number" ).html($(this).prev().val());
-    sum = Number($(this).prev().attr('add-value')) +
-    (Number($('input[name=Location]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=CleanType]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0)  +
-    (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
+    sum = Number($this.attr('add-value')) +
+    (Number($loc.attr('add-value')) || 0) +
+    (Number($clntype.attr('add-value')) || 0) +
+    (Number($bath.attr('add-value')) || 0)  +
+    (Number($how.attr('add-value')) || 0);
      sum += n;
-     sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
-  } else if($(this).prev().is('[name="Bathroom"]')) {
+     sum = sum + ( sum * Number($rec.attr('add-value')) );
+  } else if($this.is('[name=Bathroom]')) {
 		 $( "#bathroom-number" ).html($(this).prev().val());
-    sum = Number($(this).prev().attr('add-value')) +
-    (Number($('input[name=Location]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=CleanType]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bedroom]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
+    sum = Number($this.attr('add-value')) +
+    (Number($loc.attr('add-value')) || 0) +
+    (Number($clntype.attr('add-value')) || 0) +
+    (Number($bed.attr('add-value')) || 0) +
+    (Number($how.attr('add-value')) || 0);
 	 sum += n;
-   sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
-  } else if($(this).prev().is('[name="CleanType"]')) { 
+   sum = sum + ( sum * Number($rec.attr('add-value')) );
+  } else if($this.is('[name=CleanType]')) { 
    $( "#cleantype-text" ).html($(this).prev().attr('add-string'));
    $( "#cleantype-hour" ).html($(this).prev().attr('add-hour'));
 
-    sum = Number($(this).prev().attr('add-value')) +
-    (Number($('input[name=Location]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bedroom]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
+    sum = Number($this.attr('add-value')) +
+    (Number($loc.attr('add-value')) || 0) +
+    (Number($bath.attr('add-value')) || 0) +
+    (Number($bed.attr('add-value')) || 0) +
+    (Number($how.attr('add-value')) || 0);
      sum += n;
-     sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
+     sum = sum + ( sum * Number($rec.attr('add-value')) );
 
-   } else if($(this).prev().is('[name="How-Do-We-Get-In"]')) {  
-   if (!$(this).prev().is('[value="Hidden-Key"]') || !$(this).prev().is('[value="Others"]')){ $('.mc-text-area.is--hiddenkey').css({ 'display': 'none' }); $('.mc-text-area.is--othergetin').css({ 'display': 'none' }); }
-    sum = Number($(this).prev().attr('add-value')) +
-    (Number($('input[name=Location]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=CleanType]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bedroom]:checked').attr('add-value')) || 0) +
-    (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0);
+   } else if($this.is('[name=How-Do-We-Get-In]')) {  
+   if (!$this.is('[value="Hidden-Key"]') || !$this.is('[value="Others"]')){ $('.mc-text-area.is--hiddenkey, .mc-text-area.is--othergetin').css({ 'display': 'none' }); }
+    sum = Number($this.attr('add-value')) +
+    (Number($loc.attr('add-value')) || 0) +
+    (Number($clntype.attr('add-value')) || 0) +
+    (Number($bed.attr('add-value')) || 0) +
+    (Number($bath.attr('add-value')) || 0);
      sum += n;
-     sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
-   } else if($(this).prev().is('[name="Recurring"]')) {
-    sum =  ( n + (Number($('input[name=Location]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=CleanType]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=Bedroom]:checked').attr('add-value')) || 0)+
-  (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0) ); 
-  sum = sum + ( Number($(this).prev().attr('add-value')) * sum );
+     sum = sum + ( sum * Number($rec.attr('add-value')) );
+   } else if($this.is('[name=Recurring]')) {
+    sum =  ( n + (Number($loc.attr('add-value')) || 0)+
+  (Number($clntype.attr('add-value')) || 0)+
+  (Number($bath.attr('add-value')) || 0)+
+  (Number($bed.attr('add-value')) || 0)+
+  (Number($how.attr('add-value')) || 0) ); 
+  sum = sum + ( Number($this.attr('add-value')) * sum );
    	formatNDisplay(sum);
     return;
    }
@@ -133,18 +140,15 @@ $('.mc-radio-label').click(function(){
   
   FocusIn();
 });
+
 $('#hidden-key').click(function(){
 	$('.mc-text-area.is--hiddenkey').css({ 'display': 'block' });
-    $('.mc-text-area.is--othergetin').css({ 'display': 'none' });
+  $('.mc-text-area.is--othergetin').css({ 'display': 'none' });
 });
+
 $('#other-getin').click(function(){
 	$('.mc-text-area.is--othergetin').css({ 'display': 'block' });
-    $('.mc-text-area.is--hiddenkey').css({ 'display': 'none' });
-});
-$('.form-time-dropdown').change(function(){
-  $('.form-time-dropdown').each((i, select)=>{
-    $('#cleanhour-text').html($(select).val());
-  });
+  $('.mc-text-area.is--hiddenkey').css({ 'display': 'none' });
 });
 
 function formatNDisplay(sum){
