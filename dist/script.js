@@ -1,4 +1,3 @@
-<script type="text/javascript">
 $("#form-next-button, #form-prev-button").click(function() { $(window).scrollTop(0); });
   var gpaInput = document.getElementById("client-address");
   var gpaOutput = document.getElementById("clientaddress-text");
@@ -37,6 +36,4 @@ function filInAddress() {
     aptInput.addEventListener('input', myScript);
 		aptInput.addEventListener('propertychange', myScript);
 		postal.addEventListener('input', inputHandler);
-		postal.addEventListener('propertychange', inputHandler);
-</script>
-    
+		postal.addEventListener('propertychange', inputHandler);    
