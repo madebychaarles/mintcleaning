@@ -200,3 +200,5 @@ function FocusOut(){
   sum = total + n;
   formatNDisplay(sum);
 }
+
+alert('Something');
