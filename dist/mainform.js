@@ -80,7 +80,7 @@ $('.mc-radio-label').click(function(){
     (Number($('input[name=Location]:checked').attr('add-value')) || 0) +
     (Number($('input[name=CleanType]:checked').attr('add-value')) || 0) +
     (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0)  +
-     (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
+    (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
      sum += n;
      sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
   } else if($(this).prev().is('[name="Bathroom"]')) {
@@ -100,7 +100,7 @@ $('.mc-radio-label').click(function(){
     (Number($('input[name=Location]:checked').attr('add-value')) || 0) +
     (Number($('input[name=Bathroom]:checked').attr('add-value')) || 0) +
     (Number($('input[name=Bedroom]:checked').attr('add-value')) || 0) +
-     (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
+    (Number($('input[name=How-Do-We-Get-In]:checked').attr('add-value')) || 0);
      sum += n;
      sum = sum + ( sum * Number($('input[name=Recurring]:checked').attr('add-value')) );
 
