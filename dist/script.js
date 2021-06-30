@@ -1,14 +1,13 @@
-$("#form-next-button, #form-prev-button").click(function() { $(window).scrollTop(0); });
-  var gpaInput = document.getElementById("client-address");
-  var gpaOutput = document.getElementById("clientaddress-text");
-  var aptInput = document.getElementById("aptcode");
-  var postal = document.querySelector('#postcode');
-	var autocomplete = new google.maps.places.Autocomplete(gpaInput, {
+var gpaInput = document.getElementById("client-address");
+var gpaOutput = document.getElementById("clientaddress-text");
+var aptInput = document.getElementById("aptcode");
+var postal = document.querySelector('#postcode');
+var autocomplete = new google.maps.places.Autocomplete(gpaInput, {
     componentRestrictions: { country: ["us", "ca"] },
     fields: ["address_components", "geometry"],
     types: ["address"],
   });
-  autocomplete.addListener("place_changed", filInAddress);
+autocomplete.addListener("place_changed", filInAddress);
 
 function filInAddress() {
   const place = autocomplete.getPlace();
