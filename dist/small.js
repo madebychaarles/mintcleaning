@@ -1,5 +1,7 @@
 function moveCheck(){
     sum = mv + n;
+    $( "#cleantype-text" ).html($('input[name=CleanType]:checked').attr('add-string'));
+   $( "#cleantype-hour" ).html($('input[name=CleanType]:checked').attr('add-hour'));
     CBox();
     formatNDisplay(sum);
 }
